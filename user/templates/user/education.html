@@ -1,0 +1,8 @@
+{% for education in education_history %}
+    <ul>
+        <li>{{ education.school }}</li>
+        <li>{{ education.start_year }}</li>
+        <li>{{ education.end_year }}</li>
+        <li>{{ education.course }}</li>
+    </ul>
+{% endfor %}

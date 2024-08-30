@@ -1,0 +1,270 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 50px;
+    background-color: #fff;
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+    /* padding: 20px; */
+}
+
+.profile {
+    text-align: center;
+    width: 30%;
+    padding-top: 2%;
+}
+
+.profile img {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 250px;
+}
+
+.profile h1 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.profile h2 {
+    font-size: 18px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.social-icons {
+    margin: 15px 0;
+}
+
+.social-icons a {
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #ae2727;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.about-me {
+    width: 60%;
+    padding: 2%;
+    border: 45px #f4f4f4 solid;
+    margin: 0 auto; /* Center the entire about-me section horizontally */
+    text-align: center;
+}
+
+.about-me h2 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ae2727;
+    display: inline-block;
+}
+
+.about-me-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 10px 20px; /* Vertical and horizontal spacing */
+    text-align: left;
+}
+
+.about-me p {
+    margin: 10px 0;
+}
+
+.about-me p strong {
+    color: #ae2727;
+}
+
+.skills {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    border: 45px #f4f4f4 solid;
+}
+
+.skills h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ae2727;
+    display: inline-block;
+    padding-bottom: 5px;
+    text-align: left;
+}
+
+.skill-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+    gap: 20px;
+    text-align: left;
+    padding: 5%;
+}
+
+.skill {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.skill-info {
+    position: absolute;
+    top: -25px; /* Adjust as needed to position the text */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+.skill-name {
+    font-weight: bold;
+}
+
+.skill-bar {
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    height: 20px; /* Height of the skill bar */
+    width: 100%;
+}
+
+/* .skill-bar {
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    height: 20px; /* Height of the skill bar 
+    width: 100%; Full width of the container 
+} */
+
+.skill-level {
+    height: 100%;
+    width: 0; 
+    border-radius: 5px;
+    transition: width 2s ease-in-out; /* Animation duration */
+    background-color: #ae2727;
+}
+
+.skill-percent {
+    font-weight: bold;
+    text-align: right;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* h2 {
+    text-align: left;
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    position: relative;
+} */
+
+/* h2:after {
+    content: '';
+    width: 50px;
+    height: 3px;
+    background-color: #28a745;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+} */
+
+.filter-buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+
+.btn {
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.btn.active,
+.btn:hover {
+    background-color: #218838;
+}
+
+.project-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.project-item {
+    position: relative;
+    width: calc(50% - 10px);
+    overflow: hidden;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.project-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-item:hover .overlay {
+    opacity: 1;
+}
+
+.project-item:hover {
+    transform: scale(1.05);
+}
+
+.overlay h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.overlay p {
+    margin: 5px 0 0;
+    font-size: 1em;
+    color: #f7f7f7;
+}

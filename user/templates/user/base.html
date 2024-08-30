@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link rel="stylesheet" href="{% static 'user/main.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <img src="{{ user.profile.image.url }}" alt="Profile Picture">
+            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+            <h2>Software Engineer</h2>
+            <div class="social-icons">
+                {% for link in user.profile.links.all  %}
+                    <a href="{{ link.url }}"><img src="twitter-icon.png" alt="img">{{ link.name }}</a>
+                {% endfor %}
+            </div>
+            <div class="buttons">
+                <a href="#" class="btn">Download CV</a>
+                <a href="#" class="btn">Contact Me</a>
+            </div>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+    <script>
+        window.onload = function() {
+        // Select all elements with the class 'skill-level'
+        var skillLevels = document.querySelectorAll('.skill-level');
+
+        skillLevels.forEach(function(skill) {
+            // Get the skill level from the data attribute
+            var level = skill.getAttribute('data-level');
+            
+            // Animate the skill bar
+            skill.style.width = level + '%';
+            
+            // Find the corresponding skill percentage element
+            var skillPercent = skill.parentElement.previousElementSibling.querySelector('.skill-percent');
+            var target = parseInt(skillPercent.getAttribute('data-target'), 10);
+            var current = 0;
+            
+            // Function to increment the percentage
+            var increment = function() {
+                if (current < target) {
+                    current++;
+                    skillPercent.textContent = current + '%';
+                    requestAnimationFrame(increment);
+                }
+            };
+
+            // Start the increment animation
+            increment();
+        });
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.btn');
+    const items = document.querySelectorAll('.project-item');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            items.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+
+    </script>
+</body>

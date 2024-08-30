@@ -1,0 +1,33 @@
+{% extends 'user/base.html' %}
+{%  block content %}
+    <section id="portfolio">
+        <div class="container">
+            <h2>Portfolio</h2>
+            <div class="filter-buttons">
+                <button class="btn active" data-filter="all">All</button>
+                <button class="btn" data-filter="design">Design</button>
+                <button class="btn" data-filter="development">Development</button>
+            </div>
+            {% for project in projects %}
+                        <div class="project-gallery">
+                            <div class="project-item" data-category="design">
+                                <div class="overlay">
+                                    <h3>{{ project.name }}</h3>
+                                    <p>Design</p>
+                                </div>
+                            </div>
+                        </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+<!-- <ul>
+    <li>}</li>
+    <li>{{ project.industry }}</li>
+    <li>{{ project.description }}</li>
+    {% for skill in project.skills_used.all %}
+        <li>{{ skill.name }}</li>
+    {% endfor %}
+    <li><a href="{{  project.website_link }}">{{  project.website_link }}</a></li>
+    <li><a href="{{  project.github_link }}">{{  project.github_link }}</a></li>
+</ul> -->
