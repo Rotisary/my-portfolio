@@ -1,8 +1,47 @@
-{% for testimony in testimonies %}
-    <ul>
-        <li>{{ testimony.writer }}</li>
-        <li>{{ testimony.occupation }}</li>
-        <li>{{ testimony.company }}</li>
-        <li>{{ testimony.text }}</li>
-    </ul>
-{% endfor %}
+{% extends 'user/base.html' %}
+{%  block content %}
+    <div class="content" id="testimonials">
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <h2>Testimonials</h2>
+        <a href="{% url 'create-testimonial' %}" class="add-testimonial-btn">
+            + Add Testimonial
+        </a>
+        <div class="project-container">
+            <div class="grid">
+                {% for testimony in testimonies %}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="testimony-card-info">
+                                <img src="{{ testimony.image.url }}"  class="round-image">
+                                <div class="testimony-card-text">
+                                    <h3>{{ testimony.writer }}</h3>
+                                    <p style="font-size: 14px;">{{ testimony.occupation }} at {{ testimony.company }}</p>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="card-description" id="description">
+                            <p class="text" id="text">
+                                {{ testimony.text|truncatewords:20 }}
+                            </p>
+                            <div class="expanded-content" id="expanded-content">
+                                <p>
+                                    {{ testimony.text|safe }}
+                                </p>
+                            </div>
+                            <a href="#" class="toggle-btn" id="toggle-btn">Show More</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -94,17 +94,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s profile"
-
-
-class Link(models.Model):
-    profile = models.ForeignKey(Profile, related_name='links', on_delete=models.CASCADE)
-    name = models.CharField(blank=False)
-    url = models.URLField(verbose_name='URL', blank=False, unique=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=False)
-
-
-    def __str__(self):
-        return f"{self.name}-{self.id}"
     
 
 class Experience(models.Model):
@@ -119,20 +108,6 @@ class Experience(models.Model):
 
     def __str__(self):
         return f"{self.client}"
-    
-
-class Education(models.Model):
-    profile = models.ForeignKey(Profile, related_name='education', on_delete=models.CASCADE)
-    school = models.CharField(blank=False)
-    course = models.CharField(verbose_name='course/degree', blank=True)
-    start_year = models.DateField(null=False, blank=False)
-    end_year = models.DateField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, blank=False)
-    slug = models.SlugField(blank=False, unique=True)
-
-
-    def __str__(self):
-        return f"{self.school}"
     
 
 class Testimony(models.Model):

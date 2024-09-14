@@ -1,33 +1,40 @@
 {% extends 'user/base.html' %}
 {%  block content %}
-    <section id="portfolio">
-        <div class="container">
-            <h2>Portfolio</h2>
-            <div class="filter-buttons">
-                <button class="btn active" data-filter="all">All</button>
-                <button class="btn" data-filter="design">Design</button>
-                <button class="btn" data-filter="development">Development</button>
-            </div>
-            {% for project in projects %}
-                        <div class="project-gallery">
-                            <div class="project-item" data-category="design">
-                                <div class="overlay">
-                                    <h3>{{ project.name }}</h3>
-                                    <p>Design</p>
-                                </div>
+    <div class="content" id="projects">
+        <h2>My Projects</h2>
+        <div class="project-container">
+            <div class="grid">
+                {% for project in projects %}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-info">
+                                <h3>{{ project.name }}</h3> 
+                                <p>{{ project.industry }}</p>
+                            </div>
+                            <div class="project-skills">
+                                {% for skill in project.skills_used.all %}
+                                    <p>{{ skill.name }}</p>
+                                {% endfor %}
                             </div>
                         </div>
-            {% endfor %}
+                        <div class="card-description" id="description">
+                            <p class="text" id="text">
+                                {{ project.description|truncatewords:20 }}
+                            </p>
+                            <div class="expanded-content" id="expanded-content">
+                                <p>
+                                    {{ project.description|safe }}
+                                </p>
+                            </div>
+                            <a href="#" class="toggle-btn" id="toggle-btn">Show More</a>
+                        </div>
+                        <div class="buttons">
+                            <a href="{{  project.website_link }}" class="btn">Visit</a>
+                            <a href="{{  project.github_link }}" class="btn">View Code</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </section>
+    </div>
 {% endblock %}
-<!-- <ul>
-    <li>}</li>
-    <li>{{ project.industry }}</li>
-    <li>{{ project.description }}</li>
-    {% for skill in project.skills_used.all %}
-        <li>{{ skill.name }}</li>
-    {% endfor %}
-    <li><a href="{{  project.website_link }}">{{  project.website_link }}</a></li>
-    <li><a href="{{  project.github_link }}">{{  project.github_link }}</a></li>
-</ul> -->

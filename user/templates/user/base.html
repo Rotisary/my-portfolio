@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
     <link rel="stylesheet" href="{% static 'user/main.css' %}">
+    <script src="https://kit.fontawesome.com/682f18e2b6.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -14,16 +15,51 @@
             <h1>{{ user.first_name }} {{ user.last_name }}</h1>
             <h2>Software Engineer</h2>
             <div class="social-icons">
-                {% for link in user.profile.links.all  %}
-                    <a href="{{ link.url }}"><img src="twitter-icon.png" alt="img">{{ link.name }}</a>
-                {% endfor %}
+                <a href="https://github.com/Rotisary"><i class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/oladotun-kolapo-300978258"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://x.com/Rotisary1"><i class="fa-brands fa-twitter"></i></a>
+                <a href="https://facebook.com/profile.php?id=100089878931841"><i class="fa-brands fa-facebook"></i></a>
+                <a href="mailto:oladotunkolapo@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://wa.me/2347019862371"><i class="fa-brands fa-square-whatsapp"></i></a>
             </div>
             <div class="buttons">
-                <a href="#" class="btn">Download CV</a>
-                <a href="#" class="btn">Contact Me</a>
+                <a href="{% url 'download-resume' file_name='oladotun-kolapo-resume.pdf' %}" class="btn">Download Resume</a>
+                <a href="{% url 'contact-me' %}" class="btn">Contact Me</a>
             </div>
         </div>
         {% block content %}{% endblock %}
+        <div class="fixed-nav">
+            <a href="{% url 'profile' %}#about-me" class="nav-button">
+                <div class="icon-wrapper">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="icon-text">Home</span>
+            </a>
+            <a href="{% url 'skills' %}#skills" class="nav-button">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-bars-progress"></i>
+                </div>
+                <span class="icon-text">skills</span>
+            </a>
+            <a href="{% url 'projects' %}#projects" class="nav-button">
+                <div class="icon-wrapper">
+                    <i class="fas fa-project-diagram"></i>
+                </div>               
+                <span class="icon-text">projects</span>
+            </a>
+            <a href="{% url 'experience' %}#experience"class="nav-button">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <span class="icon-text">experience</span>
+            </a>
+            <a href="{% url 'testimonials' %}#testimonials" class="nav-button">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <span class="icon-text">testimonials</span>
+            </a>
+        </div>
     </div>
     <script>
         window.onload = function() {
@@ -54,29 +90,64 @@
             // Start the increment animation
             increment();
         });
-    };
+        const cards = document.querySelectorAll('.card');
 
-    document.addEventListener('DOMContentLoaded', function() {
-    const buttons = document.querySelectorAll('.btn');
-    const items = document.querySelectorAll('.project-item');
+        cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const windowWidth = window.innerWidth;
 
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            const filter = this.getAttribute('data-filter');
+            // Detect if the card is on the left or right half of the screen
+            if (cardRect.left < windowWidth / 2) {
+                // Card is on the left
+                card.style.animation = 'slideInLeft 1s forwards';
+            } else {
+                // Card is on the right
+                card.style.animation = 'slideInRight 1s forwards';
+            }
+        });
 
-            buttons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
+        cards.forEach((card, index) => {
+                const cardRect = card.getBoundingClientRect();
+                const windowWidth = window.innerWidth;
+                const delay = index * 0.2;  // Stagger animation by 0.2s for each card
 
-            items.forEach(item => {
-                if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                    item.style.display = 'block';
+                if (cardRect.left < windowWidth / 2) {
+                    card.style.animation = `slideInLeft 1s forwards ${delay}s`;
                 } else {
-                    item.style.display = 'none';
+                    card.style.animation = `slideInRight 1s forwards ${delay}s`;
                 }
             });
+    };
+
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+
+    // Add a click event listener to the toggle button
+    toggleButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            // Find the associated body-text and expanded-content based on the button's index
+            const bodyText = document.querySelectorAll('.text')[index];
+            const expandedContent = document.querySelectorAll('.expanded-content')[index];
+
+            // Toggle the visibility of the expanded content and body text
+            if (expandedContent.style.display === 'none' || expandedContent.style.display === '') {
+                expandedContent.style.display = 'block';  // Show expanded content
+                bodyText.style.display = 'none';  // Hide body text
+                button.textContent = 'Show Less';  // Change button text
+            } else {
+                expandedContent.style.display = 'none';  // Hide expanded content
+                bodyText.style.display = 'block';  // Show body text
+                button.textContent = 'Show More';  // Change button text back
+            }
         });
     });
-});
 
+    document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.hash) {
+        const element = document.querySelector(window.location.hash);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+});
     </script>
 </body>

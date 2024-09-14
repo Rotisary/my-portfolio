@@ -1,8 +1,30 @@
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="writer" id="">
-    <input type="text" name="occupation" id="">
-    <input type="text" name="company" id="">
-    <input type="text" name="text" id="">
-    <button type="submit">add testimony</button>
-</form>
+{% extends 'user/base.html' %}
+{% block content %}
+<div class="content">
+    <h2>Leave Your Testimonial</h2>
+
+    <!-- Testimonial submission form -->
+    <form method="POST" id="testimonial-form" class="testimonial-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="writer" placeholder="Enter your name" required>
+
+        <label for="occupation">Your Occupation</label>
+        <input type="text" id="occupation" name="occupation" placeholder="Enter what you do" required>
+
+        <label for="company">Where Do You Work</label>
+        <input type="text" id="company" name="company" placeholder="Enter where you work" required>
+
+        <label for="image">Upload an Image (it allows site visitors know that the testimonials are real)</label>
+        <input type="file" id="image" name="image" accept="image/*">
+
+        <label for="message">Your Testimonial</label>
+        <textarea id="message" name="text" placeholder="Enter your testimonial" required></textarea>
+
+        <div style="text-align: center;">
+            <button type="submit" class="btn">Submit Testimonial</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

@@ -1,8 +1,35 @@
-{% for experience in experiences %}
-    <ul>
-        <li>{{ experience.client }}</li>
-        <li>{{ experience.start_year }}</li>
-        <li>{{ experience.end_year }}</li>
-        <li>{{ experience.details }}</li>
-    </ul>
-{% endfor %}
+{% extends 'user/base.html' %}
+{%  block content %}
+    <div class="content" id="experience">
+        <h2>Experience</h2>
+        <div class="project-container">
+            <div class="grid">
+                {% for experience in experiences %}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-info">
+                                <h3>{{ experience.client }}</h3> 
+                                {% if not experience.end_year %}
+                                    <p>{{ experience.start_year|date:"Y" }} - till date</p>
+                                {% else %}
+                                    <p>{{ experience.start_year|date:"Y" }} - {{ experience.end_year }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-description" id="description">
+                            <p class="text" id="text">
+                                {{ experience.details|truncatewords:20 }}
+                            </p>
+                            <div class="expanded-content" id="expanded-content">
+                                <p>
+                                    {{ experience.details|safe }}
+                                </p>
+                            </div>
+                            <a href="#" class="toggle-btn" id="toggle-btn">Show More</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

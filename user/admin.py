@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Profile, Link, Experience, Education, Testimony
+from .models import User, Profile, Experience, Testimony
 
 class CustomUserAdmin(UserAdmin):
     list_display = ('email', 'username', 'first_name', 'last_name', 'date_joined', 'last_login')
@@ -22,12 +22,6 @@ class ExperienceAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ('client', )}
 
 
-class EducationAdmin(admin.ModelAdmin):
-    list_display = ('school', 'course', 'start_year', 'end_year', 'created_at')
-    readonly_fields = ('created_at',)
-    prepopulated_fields = {"slug": ('school', )}
-
-
 class TestimonyAdmin(admin.ModelAdmin):
     list_display = ('writer', 'created_at')
     readonly_fields = ('created_at',)
@@ -36,8 +30,6 @@ class TestimonyAdmin(admin.ModelAdmin):
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Link)
 admin.site.register(Experience, ExperienceAdmin)
-admin.site.register(Education, EducationAdmin)
 admin.site.register(Testimony, TestimonyAdmin)
 
