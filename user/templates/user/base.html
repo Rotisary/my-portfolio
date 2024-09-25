@@ -11,9 +11,13 @@
 <body>
     <div class="container">
         <div class="profile">
-            <img src="{{ user.profile.image.url }}" alt="Profile Picture">
-            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-            <h2>Software Engineer</h2>
+            <div class="image-overlay-container">
+                <img src="{{ user.profile.image.url }}" alt="Profile Picture">
+                <div class="image-text">
+                    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                    <h2>Software Engineer</h2>
+                </div>
+            </div>
             <div class="social-icons">
                 <a href="https://github.com/Rotisary"><i class="fa-brands fa-github"></i></a>
                 <a href="https://linkedin.com/in/oladotun-kolapo-300978258"><i class="fa-brands fa-linkedin"></i></a>

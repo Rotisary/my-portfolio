@@ -2,17 +2,19 @@
 {% block content %}
     <div class="content about-me" style="padding: 1%;">
         <h2>About Me</h2>
-        <p style="text-align: left;">{{ profile.about }}</p>
-        <div class="about-me-info">
-            <div>
-                <p><strong>Name:</strong>{{ user.first_name }} {{ user.last_name }}</p>
-                <p><strong>Degree:</strong> Master</p>
-                <p><strong>Phone:</strong> {{ user.phone_number }}</p>
-            </div>
-            <div>
-                <p><strong>Experience:</strong> 10 Years</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Freelance:</strong> Available</p>
+        <div class="skill-container">
+            <p style="text-align: left;">{{ profile.about }}</p>
+            <div class="about-me-info">
+                <div>
+                    <p><strong>Name:</strong>{{ user.first_name }} {{ user.last_name }}</p>
+                    <p><strong>Degree:</strong> Master</p>
+                    <p><strong>Phone:</strong> {{ user.phone_number }}</p>
+                </div>
+                <div>
+                    <p><strong>Experience:</strong> 10 Years</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Freelance:</strong> Available</p>
+                </div>
             </div>
         </div>
     </div>
