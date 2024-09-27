@@ -15,7 +15,7 @@
                 <img src="{{ user.profile.image.url }}" alt="Profile Picture">
                 <div class="image-text">
                     <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-                    <h2>Software Engineer</h2>
+                    <h2>Software Engineer, Backend Developer</h2>
                 </div>
             </div>
             <div class="social-icons">
@@ -65,6 +65,22 @@
             </a>
         </div>
     </div>
+    <footer  class="footer-div">
+        {% block footer %}
+            <div style="text-align: center; color: #f1f1f2;">
+                <p><h3>Oladotun Kolapo</h3></p>
+            </div>
+            <div class="social-icons" style="text-align: center;">
+                <a href="https://github.com/Rotisary"><i class="fa-brands fa-github" style="color: #f1f1f2;"></i></a>
+                <a href="https://linkedin.com/in/oladotun-kolapo-300978258"><i class="fa-brands fa-linkedin" style="color: #f1f1f2;"></i></a>
+                <a href="https://x.com/Rotisary1"><i class="fa-brands fa-twitter" style="color: #f1f1f2;"></i></a>
+                <a href="https://facebook.com/profile.php?id=100089878931841"><i class="fa-brands fa-facebook" style="color: #f1f1f2;"></i></a>
+                <a href="mailto:oladotunkolapo@gmail.com"><i class="fas fa-envelope" style="color: #f1f1f2;"></i></a>
+                <a href="https://wa.me/2347019862371"><i class="fa-brands fa-square-whatsapp" style="color: #f1f1f2;"></i></a>
+            </div>
+            <p style="color: #f1f1f2; text-align: center;"> &COPY;Oladotun Kolapo 2024, All rights reserved</p>
+        {% endblock %}
+        </footer>
     <script>
         window.onload = function() {
         // Select all elements with the class 'skill-level'
