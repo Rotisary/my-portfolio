@@ -46,7 +46,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    email = models.EmailField(verbose_name='email', unique=True, null=False)
+    email = models.EmailField(max_length=100, verbose_name='email', unique=True, null=False)
     username = models.CharField(max_length=30, unique=True, null=False)
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True, null=False)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True, null=False)
@@ -56,7 +56,7 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     first_name = models.CharField(max_length=30, null=False)
     last_name = models.CharField(max_length=30, null=False)
-    phone_number = models.CharField(blank=True, null=True)
+    phone_number = models.CharField(max_length=11, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
@@ -99,7 +99,7 @@ class Profile(models.Model):
 class Experience(models.Model):
     profile = models.ForeignKey(Profile, related_name='experience', on_delete=models.CASCADE)
     details = models.TextField(blank=False)
-    client = models.CharField(verbose_name='client/organisation', blank=False)
+    client = models.CharField(max_length=100, verbose_name='client/organisation', blank=False)
     start_year = models.DateField(null=False, blank=False)
     end_year = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
@@ -112,10 +112,10 @@ class Experience(models.Model):
 
 class Testimony(models.Model):
     profile = models.ForeignKey(Profile, related_name='testimonies', on_delete=models.CASCADE)
-    writer = models.CharField(verbose_name='name', blank=False)
+    writer = models.CharField(max_length=100, verbose_name='name', blank=False)
     image = models.ImageField(null=True, upload_to='writer_pics')
-    occupation = models.CharField(blank=False)
-    company = models.CharField(blank=True)
+    occupation = models.CharField(max_length=100, blank=False)
+    company = models.CharField(max_length=100, blank=True)
     text = models.TextField(blank=False)
     created_at = models.DateTimeField(auto_now_add=True, null=False) 
 

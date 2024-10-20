@@ -4,8 +4,8 @@ from django.contrib import messages
 from .models import User, Profile, Experience, Testimony
 from django.core.mail import send_mail
 from portfolio.settings import EMAIL_HOST_USER
-from django.http import FileResponse, Http404
 import os
+import boto3
 from django.conf import settings
 
 
@@ -68,12 +68,13 @@ def contact_me(request):
     
 
 def download_resume(request, file_name):
-    path_to_file = os.path.join(settings.MEDIA_ROOT, file_name)
-
-    if os.path.exists(path_to_file):
-        response = FileResponse(open(path_to_file, 'rb'))
-        response['Content-Disposition'] = f'attachment; filename="{file_name}"'
-        return response
-    else:
-        return Http404('file not found')
-
+    client = boto3.client('s3', aws_access_key_id = settings.AWS_ACCESS_KEY_ID, 
+    aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY)
+    bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+    url = client.generate_presigned_url('get_object', 
+                                        Params = {
+                                            'Bucket': bucket_name, 
+                                            'Key': file_name,
+                                        }, 
+                                        ExpiresIn = 600)
+    return HttpResponseRedirect(url)
