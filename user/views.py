@@ -4,9 +4,7 @@ from django.contrib import messages
 from .models import User, Profile, Experience, Testimony
 from django.core.mail import send_mail
 from portfolio.settings import EMAIL_HOST_USER
-import os
-import boto3
-from django.conf import settings
+from cloudinary.utils import cloudinary_url
 
 
 def base_view(request):
@@ -38,7 +36,7 @@ def create_testimony(request):
         )
         testimony.save()
         messages.success(request, "your testimonial has been added")
-        return HttpResponseRedirect(reverse('testimonies'))
+        return HttpResponseRedirect(reverse('testimonials'))
     else:
         user = User.objects.all().first()
         return render(request, 'user/create_testimony.html', context={'user': user})
@@ -67,14 +65,12 @@ def contact_me(request):
         return render(request, 'user/contact.html', context={'user': user})
     
 
-def download_resume(request, file_name):
-    client = boto3.client('s3', aws_access_key_id = settings.AWS_ACCESS_KEY_ID, 
-    aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY)
-    bucket_name = settings.AWS_STORAGE_BUCKET_NAME
-    url = client.generate_presigned_url('get_object', 
-                                        Params = {
-                                            'Bucket': bucket_name, 
-                                            'Key': file_name,
-                                        }, 
-                                        ExpiresIn = 600)
+def download_resume(request, public_id):
+
+    url, _ = cloudinary_url(
+        public_id,
+        flags="attachment",
+        resource_type="raw",
+        secure=True,
+    )
     return HttpResponseRedirect(url)

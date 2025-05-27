@@ -4,6 +4,7 @@ from django.conf import settings
 from django.template.defaultfilters import slugify
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from cloudinary.models import CloudinaryField
 
 
 class UserManager(BaseUserManager):
@@ -79,7 +80,7 @@ class User(AbstractBaseUser):
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE)
     about = models.TextField(blank=True)
-    image = models.ImageField(null=True, upload_to='profile_pic')
+    image = CloudinaryField('image', use_filename=True, unique_filename=False, folder='portfolio_profile_pics')
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     slug = models.SlugField(blank=True, unique=True)
 
@@ -113,7 +114,7 @@ class Experience(models.Model):
 class Testimony(models.Model):
     profile = models.ForeignKey(Profile, related_name='testimonies', on_delete=models.CASCADE)
     writer = models.CharField(max_length=100, verbose_name='name', blank=False)
-    image = models.ImageField(null=True, upload_to='writer_pics')
+    image = image = CloudinaryField('image', use_filename=True, unique_filename=False, folder='testimony_writer_images')
     occupation = models.CharField(max_length=100, blank=False)
     company = models.CharField(max_length=100, blank=True)
     text = models.TextField(blank=False)
